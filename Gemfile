@@ -4,6 +4,10 @@ gem 'rails', '4.2.6'
 gem 'pg', '~> 0.15'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'devise'
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'sprockets-rails'
+gem 'jquery-rails'
 
 # TODO: Add rails CORS for ember integration
 
