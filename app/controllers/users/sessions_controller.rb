@@ -13,14 +13,17 @@ class Users::SessionsController < Devise::SessionsController
 
     if resource.valid_password?(params[:user][:password])
       sign_in("user", resource)
-      render :json=> {:success=>true, :auth_token=>resource.authentication_token, :email=>resource.email}
+      render :json=> {:success=>true, :authentication_token=>resource.authentication_token, :email=>resource.email}
       return
     end
     invalid_login_attempt
   end
   
   def destroy
-    sign_out(resource_name)
+    binding.pry
+    current_user.authentication_token = nil
+    current_user.save
+    sign_out(current_user)
   end
 
   protected
