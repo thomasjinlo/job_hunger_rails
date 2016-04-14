@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   resource :dashboard, only: [:index]
 
-  devise_for :users do
-    get "sign_in", to: "devise/sessions#new"
-    delete "sign_out", :to => "devise/sessions#destroy"
+  devise_for :users, controllers: { sessions: 'users/sessions' } do
+    get "sign_in" => "users/sessions#new"
+    delete "sign_out" => "users/sessions#destroy"
   end
 
 end
