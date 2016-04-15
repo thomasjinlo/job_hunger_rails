@@ -4,37 +4,35 @@ RSpec.describe CompaniesController, type: :controller do
 
   include Devise::TestHelpers
 
-  # describe 'GET#index /companies' do
+  describe 'GET#index /companies' do
 
-  #   let(:user){create(:user)}
-  #   let(:company){create(:company, user: user)}
-  #   let(:json) { JSON.parse(response.body) }
+    let(:user){create(:user)}
+    let(:company){create(:company, user: user)}
+    let(:json) { JSON.parse(response.body) }
 
-  #   before do
-  #     sign_in(user)
-  #     company
-  #   end
+    before do
+      token_sign_in(user)
+      company
+    end
 
-  #   it 'gets all the companies' do
-  #     get :index
-  #     expect(json["data"].length).to eq(1)
-  #   end
+    it 'gets all the companies' do
+      get :index
+      expect(json["data"].length).to eq(1)
+    end
 
-  # end
+  end
 
   describe 'POST#create /companies' do
 
-    let(:user) {create(:user)}
+    let(:user) { create(:user) }
     let(:valid_company_attributes) { attributes_for(:company) }
 
     before do
       @request.env['CONTENT_TYPE'] = "application/vnd.api+json"
-      sign_in(user)
+      token_sign_in(user)
     end
 
-    it 'creates a new company with valid parameters' do
-
-      # print valid_company_attributes
+    xit 'creates a new company with valid parameters' do
       data = { data: {
                 type: "companies",
                 attributes: {
@@ -47,31 +45,25 @@ RSpec.describe CompaniesController, type: :controller do
                   }
                 }
               }
-
-
       post :create, data, format: :json
-
-      print JSON.parse(response.body)
-
-      # expect{post :create, company: valid_company_attributes, format: :json}.to change(Company, :count).by(1)
     end
 
   end
 
-  # describe 'DELETE/#destroy /companies/:id' do
+  describe 'DELETE/#destroy /companies/:id' do
 
-  #   let(:user){create(:user)}
-  #   let(:company){create(:company, user: user)}
+    let(:user){create(:user)}
+    let(:company){create(:company, user: user)}
    
-  #   before do
-  #     sign_in(user)
-  #     company
-  #   end
+    before do
+      token_sign_in(user)
+      company
+    end
 
-  #   it 'deletes a company' do
-  #     expect{delete :destroy, id: company.id}.to change(Company, :count).by(-1)
-  #   end
+    it 'deletes a company' do
+      expect{delete :destroy, id: company.id}.to change(Company, :count).by(-1)
+    end
 
-  # end
+  end
 
 end
