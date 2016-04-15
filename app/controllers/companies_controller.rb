@@ -1,3 +1,4 @@
-class CompaniesController < JSONAPI::ResourceController
-  # before_action :authenticate_user!
+class CompaniesController < ApplicationController
+  before_action :authenticate_user!
+
 end
