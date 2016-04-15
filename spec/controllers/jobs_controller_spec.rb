@@ -40,5 +40,5 @@ RSpec.describe JobsController, type: :controller do
       expect{delete :destroy, id: job.id}.to change(Job, :count).by(-1)
     end
   end
-  
+
 end
