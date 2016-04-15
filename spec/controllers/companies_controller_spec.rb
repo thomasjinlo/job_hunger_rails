@@ -2,10 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CompaniesController, type: :controller do
 
-
-include Devise::TestHelpers
-
- 
+  include Devise::TestHelpers
 
   describe 'GET#index /companies' do
 
@@ -14,7 +11,7 @@ include Devise::TestHelpers
     let(:json) { JSON.parse(response.body) }
 
     before do
-      sign_in(user)
+      token_sign_in(user)
       company
     end
 
@@ -25,39 +22,33 @@ include Devise::TestHelpers
 
   end
 
-  # describe 'POST#create /companies' do
+  describe 'POST#create /companies' do
 
-  #   let(:user){create(:user)}
-  #   let(:valid_company_attributes) { attributes_for(:company, user_id: user.id) }
+    let(:user) { create(:user) }
+    let(:valid_company_attributes) { attributes_for(:company) }
 
-  #   before do
-  #     sign_in(user)
-  #   end
+    before do
+      @request.env['CONTENT_TYPE'] = "application/vnd.api+json"
+      token_sign_in(user)
+    end
 
-  #   it 'creates a new company with valid parameters' do
+    xit 'creates a new company with valid parameters' do
+      data = { data: {
+                type: "companies",
+                attributes: {
+                  name: "Ember Hamster"
+                }
+              },
+                relationships: {
+                  user: {
+                    data: { type: "users", id: user.id}
+                  }
+                }
+              }
+      post :create, data, format: :json
+    end
 
-  #     # request.headers["Content-Type"] = "application/vnd.api+json"
-
-  #     # request.headers{'HTTP_ACCEPT' => 'application/vnd.api+json'}
-
-  #     #  request_headers = {
-  #     #   "Accept" => "application/vnd.api+json",
-  #     #   "Content-Type" => "application/vnd.api+json"
-  #     # }
-
-  #     print valid_company_attributes
-  #     print request.headers
-
-  #     post :create, company: valid_company_attributes.to_json
-
-  #      # headers: { 'Content-Type' => 'application/vnd.api+json'}
-
-  #     print JSON.parse(response.body)
-
-  #     expect{post :create, company: valid_company_attributes, format: :json}.to change(Company, :count).by(1)
-  #   end
-
-  # end
+  end
 
   describe 'DELETE/#destroy /companies/:id' do
 
@@ -65,7 +56,7 @@ include Devise::TestHelpers
     let(:company){create(:company, user: user)}
    
     before do
-      sign_in(user)
+      token_sign_in(user)
       company
     end
 

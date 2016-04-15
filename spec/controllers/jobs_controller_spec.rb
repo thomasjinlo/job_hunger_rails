@@ -14,8 +14,7 @@ RSpec.describe JobsController, type: :controller do
 
 
     before do
-      sign_in(user)
-      company
+      token_sign_in(user)
       job
     end
 
@@ -33,7 +32,7 @@ RSpec.describe JobsController, type: :controller do
     let(:job){create(:job, company: company)}
 
     before do
-      sign_in(user)
+      token_sign_in(user)
       job
     end
 
@@ -41,5 +40,5 @@ RSpec.describe JobsController, type: :controller do
       expect{delete :destroy, id: job.id}.to change(Job, :count).by(-1)
     end
   end
-
+  
 end

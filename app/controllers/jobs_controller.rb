@@ -1,3 +1,3 @@
-class JobsController < JSONAPI::ResourceController
-  
+class JobsController < ApplicationController
+  before_action :authenticate_user!
 end
