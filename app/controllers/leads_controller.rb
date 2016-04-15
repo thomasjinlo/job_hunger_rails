@@ -1,4 +1,4 @@
-class LeadsController < JSONAPI::ResourceController
+class LeadsController < ApplicationController
   before_action :authenticate_user!
-  
+
 end
