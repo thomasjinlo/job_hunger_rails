@@ -3,6 +3,9 @@ rvm:
   - 2.3.0
 addons:
   - postgresql
+branches:
+  only:
+  - master
 deploy:
   provider: heroku
   app: mysterious-shelf-41013

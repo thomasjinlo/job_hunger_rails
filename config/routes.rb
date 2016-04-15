@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
   scope :api do
     scope :v1 do
-
+      jsonapi_resources :users
+      jsonapi_resources :companies
     end
   end
 
