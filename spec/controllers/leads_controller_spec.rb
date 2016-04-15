@@ -1,5 +1,4 @@
 require 'rails_helper'
-include Devise::TestHelpers
 
 RSpec.describe LeadsController, type: :controller do
 
@@ -11,7 +10,7 @@ RSpec.describe LeadsController, type: :controller do
   describe 'GET #index' do
 
     before do
-      sign_in user
+      token_sign_in user
       lead
     end
 
@@ -24,7 +23,7 @@ RSpec.describe LeadsController, type: :controller do
   describe 'DELETE #destroy' do
 
     before do
-      sign_in user
+      token_sign_in user
       lead
     end
 
