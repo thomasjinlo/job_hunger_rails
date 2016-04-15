@@ -3,13 +3,33 @@ include Devise::TestHelpers
 
 RSpec.describe LeadsController, type: :controller do
 
+  let(:user) { create(:user) }
+  let(:json) { JSON.parse(response.body) }
+  let(:company) { create(:company, user: user) }
+  let(:lead) { create(:lead, company: company) }
+
   describe 'GET #index' do
 
-    let(:json) { JSON.parse(response.body) }
+    before do
+      sign_in user
+      lead
+    end
 
     it 'gets all leads' do
       get :index
-      print json
+      expect(json['data'].length).to eq 1
+    end
+  end
+
+  describe 'DELETE #destroy' do
+
+    before do
+      sign_in user
+      lead
+    end
+
+    it 'deletes a lead' do
+      expect { delete :destroy, id: lead.id }.to change { Lead.count }.by -1
     end
   end
 end
