@@ -1,5 +1,5 @@
 class CompanyResource < JSONAPI::Resource
   has_one :user
 
-  attributes :name, :user_id, :notes, :interest
+  attributes :name, :notes, :interest, :website, :blog, :address
 end

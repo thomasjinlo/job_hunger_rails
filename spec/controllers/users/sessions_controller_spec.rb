@@ -26,21 +26,22 @@ RSpec.describe Users::SessionsController, type: :controller do
   end
 
 
-  # describe 'DELETE /users/sign_out' do
-  #   let(:json) { JSON.parse(response.body) }
-  #   let(:user) { create(:user) }
+  describe 'DELETE /users/sign_out' do
+    let(:json) { JSON.parse(response.body) }
+    let(:user) { create(:user) }
 
-  #   before do
-  #     sign_in(user)
-  #      request.env["devise.mapping"] = Devise.mappings[:user]
-  #   end
+    before do
+      sign_in(user)
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+    end
 
-  #   it 'signs the user out if previously signed in' do
-  #     auth_token = user.authentication_token
-  #     delete :destroy, format: :json
-  #     expect(user.authentication_token).to_not eq(auth_token)
-  #   end
+    it 'signs the user out if previously signed in' do
+      expect(controller.current_user).to eq(user)
+      delete :destroy, format: :json
+      expect(json["success"]).to be true
+      expect(controller.current_user).to be nil
+    end
 
-  # end
+  end
 
 end
