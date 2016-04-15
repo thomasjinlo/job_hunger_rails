@@ -11,6 +11,7 @@ gem 'simple_token_authentication'
 
 gem 'rails_12factor'
 gem 'jsonapi-resources'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'byebug'

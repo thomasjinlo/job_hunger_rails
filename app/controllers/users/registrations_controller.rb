@@ -3,19 +3,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_account_update_params, only: [:update]
 
   respond_to :json
+
   def create
 
     user = User.new(whitelist_params)
+    p user
     if user.save
       render :json=> user.as_json(:authentication_token=>user.authentication_token, :email=>user.email), :status=>201
-      return
     else
       # warden.custom_failure!
       render :json=> user.errors, :status=>422
     end
   end
 
-private
+  private
 
   def whitelist_params
     params.require(:user).permit(:email, :password)
