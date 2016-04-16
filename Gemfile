@@ -8,8 +8,6 @@ gem 'devise'
 gem 'devise_token_auth', github: "lynndylanhurley/devise_token_auth"
 gem 'omniauth'
 
-# TODO: Add rails CORS for ember integration
-
 gem 'rails_12factor'
 gem 'jsonapi-resources'
 gem 'rack-cors', :require => 'rack/cors'

@@ -2,8 +2,6 @@ require 'rails_helper'
 
 RSpec.describe CompaniesController, type: :controller do
 
-  include Devise::TestHelpers
-
   describe 'GET#index /companies' do
 
     let(:user){create(:user)}
@@ -32,16 +30,17 @@ RSpec.describe CompaniesController, type: :controller do
       token_sign_in(user)
     end
 
-    xit 'creates a new company with valid parameters' do
-      data = { data: {
-                type: "companies",
-                attributes: {
-                  name: "Ember Hamster"
+    it 'creates a new company with valid parameters' do
+      puts user.id
+      data = { "data": {
+                "type": "companies",
+                "attributes": {
+                  "name": "Ember Hamster"
                 }
               },
-                relationships: {
-                  user: {
-                    data: { type: "users", id: user.id}
+                "relationships": {
+                  "user": {
+                    "data": { "type": "users", "id": user.id}
                   }
                 }
               }

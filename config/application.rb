@@ -7,7 +7,7 @@ require "active_job/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
-require "action_view/railtie"
+# require "action_view/railtie"
 # require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -29,7 +29,7 @@ module JobHunger
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.middleware.insert_before 0, "Rack::Cors", :debug => true, :logger => (-> { Rails.logger }) do
+    config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins '*'
         resource '*',
@@ -40,7 +40,7 @@ module JobHunger
     end
 
     config.to_prepare do
-      DeviseController.respond_to :json
+      DeviseController.respond_to :html, :json
     end
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
