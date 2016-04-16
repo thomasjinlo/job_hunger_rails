@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CompaniesController, type: :controller do
-
-  include Devise::TestHelpers
-
+  
   describe 'GET#index /companies' do
 
     let(:user){create(:user)}
@@ -54,7 +52,7 @@ RSpec.describe CompaniesController, type: :controller do
 
     let(:user){create(:user)}
     let(:company){create(:company, user: user)}
-   
+
     before do
       token_sign_in(user)
       company
