@@ -10,9 +10,8 @@ MULTIPLIER = 10
 puts "Creating users..."
 
 def create_user
-  puts "I'm in here!"
-  puts Faker::Internet.email
-  User.create(email: Faker::Internet.email, password: "password")
+  email = Faker::Internet.email
+  User.create(email: email, uid: email, password: "password")
 end
 
 MULTIPLIER.times do
