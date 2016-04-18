@@ -7,7 +7,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'devise_token_auth', github: "lynndylanhurley/devise_token_auth"
 gem 'omniauth'
-
+gem 'faker'
 gem 'rails_12factor'
 gem 'jsonapi-resources'
 gem 'rack-cors', :require => 'rack/cors'
