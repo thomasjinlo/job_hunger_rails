@@ -8,12 +8,8 @@ Rails.application.routes.draw do
 
   # devise_for :users
 
-  scope :api do
-    scope :v1 do
-      jsonapi_resources :users
-      jsonapi_resources :companies
-      jsonapi_resources :leads
-      jsonapi_resources :jobs
-    end
-  end
+  jsonapi_resources :users
+  jsonapi_resources :companies
+  jsonapi_resources :leads
+  jsonapi_resources :jobs
 end

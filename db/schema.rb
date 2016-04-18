@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 20160415203239) do
     t.string   "address"
   end
 
+  create_table "jobs", force: :cascade do |t|
+    t.string   "title",              null: false
+    t.boolean  "application_status"
+    t.string   "url"
+    t.integer  "company_id",         null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "leads", force: :cascade do |t|
     t.integer  "company_id"
     t.string   "name",       null: false
@@ -40,15 +49,6 @@ ActiveRecord::Schema.define(version: 20160415203239) do
   end
 
   add_index "leads", ["company_id"], name: "index_leads_on_company_id", using: :btree
-
-  create_table "jobs", force: :cascade do |t|
-    t.string   "title",              null: false
-    t.boolean  "application_status"
-    t.string   "url"
-    t.integer  "company_id",         null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
