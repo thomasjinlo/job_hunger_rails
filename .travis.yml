@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.3.0
 addons:
-  - postgresql
+  postgresql: '9.4'
 branches:
   only:
   - master
