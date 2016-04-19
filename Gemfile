@@ -14,8 +14,10 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'hirb'
 
 group :development, :test do
+  gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
   gem 'byebug'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'pry-byebug'
   gem 'rubocop', require: false
   gem 'rspec-rails'

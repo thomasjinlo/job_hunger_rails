@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419175114) do
+ActiveRecord::Schema.define(version: 20160419215455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,19 @@ ActiveRecord::Schema.define(version: 20160419175114) do
 
   add_index "leads", ["company_id"], name: "index_leads_on_company_id", using: :btree
 
+  create_table "recommendations", force: :cascade do |t|
+    t.integer  "user_id",            null: false
+    t.datetime "start_date",         null: false
+    t.string   "recommendable_type", null: false
+    t.integer  "recommendable_id",   null: false
+    t.string   "action",             null: false
+    t.boolean  "completed",          null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "recommendations", ["user_id"], name: "index_recommendations_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
     t.string   "uid",                    default: "",      null: false
@@ -90,4 +103,5 @@ ActiveRecord::Schema.define(version: 20160419175114) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "leads", "companies"
+  add_foreign_key "recommendations", "users"
 end

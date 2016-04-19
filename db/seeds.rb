@@ -3,9 +3,10 @@ puts 'Deleting everything...'
 Job.destroy_all
 Lead.destroy_all
 Company.destroy_all
+Recommendation.destroy_all
 User.destroy_all
 
-MULTIPLIER = 10
+MULTIPLIER = 2
 
 puts 'Creating users...'
 
@@ -42,11 +43,32 @@ end
 
 puts 'Creating leads and jobs...'
 
+def create_company_recommendations(parent)
+  Company::RECOMMENDATIONS.each do |action|
+    Recommendation.create(recommendable_type: parent.class, recommendable_id: parent.id, completed: false, action: action, user_id: parent.user.id, start_date: DateTime.now + rand(1..3))
+  end
+end
+
+puts 'Creating leads and jobs...'
+
 Company.all.each do |company|
   2.times do
     create_lead(company.id)
   end
   create_job(company.id)
+  create_company_recommendations(company)
+end
+
+puts 'Creating recommendations...'
+
+def create_lead_recommendations(parent)
+  Lead::RECOMMENDATIONS.each do |action|
+    Recommendation.create(recommendable_type: parent.class, recommendable_id: parent.id, completed: false, action: action, user_id: parent.company.user.id, start_date: DateTime.now + rand(1..3))
+  end
+end
+
+Lead.all.each do |lead|
+  create_lead_recommendations(lead)
 end
 
 puts 'Done!'
