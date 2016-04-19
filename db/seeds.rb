@@ -11,14 +11,14 @@ puts "Creating users..."
 
 def create_user
   email = Faker::Internet.email
-  User.create(email: email, uid: email, password: "password")
+  User.create(email: email, uid: email, password: "password", password_confirmation: "password")
 end
 
 MULTIPLIER.times do
   create_user
 end
 
-User.create(email: 'test@test.com', password: "password")
+User.create(email: 'test@test.com', password: "password", password_confirmation: "password")
 
 
 puts "Creating companies..."

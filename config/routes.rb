@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :recommendations
   mount_devise_token_auth_for 'User', at: 'users'
 
   # devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' } do
@@ -12,4 +13,5 @@ Rails.application.routes.draw do
   jsonapi_resources :companies
   jsonapi_resources :leads
   jsonapi_resources :jobs
+  jsonapi_resources :recommendations
 end

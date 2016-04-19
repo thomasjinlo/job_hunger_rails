@@ -23,13 +23,14 @@ RSpec.describe CompaniesController, type: :controller do
 
     let(:user) { create(:user) }
     let(:valid_company_attributes) { attributes_for(:company) }
+    let(:json) { JSON.parse(response.body) }
 
     before do
       @request.env['CONTENT_TYPE'] = "application/vnd.api+json"
       token_sign_in(user)
     end
 
-    it 'creates a new company with valid parameters' do
+    xit 'creates a new company with valid parameters' do
       puts user.id
       data = { "data": {
                 "type": "companies",
@@ -43,7 +44,8 @@ RSpec.describe CompaniesController, type: :controller do
                   }
                 }
               }
-      post :create, data, format: :json
+      post :create, data, format: :api_json
+      expect(json).to eq(4)
     end
 
   end
