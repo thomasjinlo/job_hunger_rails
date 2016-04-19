@@ -15,7 +15,7 @@ MULTIPLIER = 2
 puts "Creating users..."
 
 def create_user
-  User.create(email: email, password: "password", password_confirmation: "password")
+  User.create(email: Faker::Internet.email, password: "password", password_confirmation: "password")
 end
 
 MULTIPLIER.times do
