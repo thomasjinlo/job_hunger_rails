@@ -10,7 +10,7 @@ class CompanyResource < JSONAPI::Resource
 
   def generate_recommendations
     Company::RECOMMENDATIONS.each do |action|
-      Recommendation.create(recommendable_type: "company", recommendable_id: @model.id, completed: false, action: action, user_id: @model.user.id, start_date: DateTime.now + rand(1..3))
+      Recommendation.create(recommendable_type: @model.class, recommendable_id: @model.id, completed: false, action: action, user_id: @model.user.id, start_date: DateTime.now + rand(1..3))
     end
   end
 

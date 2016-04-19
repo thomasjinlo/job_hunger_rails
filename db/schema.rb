@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160419142206) do
     t.string   "recommendable_type", null: false
     t.integer  "recommendable_id",   null: false
     t.string   "action",             null: false
-    t.boolean  "complete",           null: false
+    t.boolean  "completed",          null: false
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
   end

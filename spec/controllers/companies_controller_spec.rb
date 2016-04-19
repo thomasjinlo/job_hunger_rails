@@ -21,6 +21,11 @@ RSpec.describe CompaniesController, type: :controller do
 
   describe 'POST#create /companies' do
 
+  # this is what Ember sends:
+  # Processing by CompaniesController#create as API_JSON
+  # Parameters: {"data"=>{"attributes"=>{"name"=>"j", "notes"=>nil}, "relationships"=>{"user"=>{"data"=>{"type"=>"users", "id"=>"11"}}}, "type"=>"companies"}}
+
+
     let(:user) { create(:user) }
     let(:valid_company_attributes) { attributes_for(:company) }
     let(:json) { JSON.parse(response.body) }

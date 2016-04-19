@@ -4,7 +4,7 @@ class Company < ActiveRecord::Base
   has_many :recommendations, as: :recommendable
 
 
-  RECOMMENDATIONS = ["Find their tech blog", "Research the company and add to the notes field"]
+  RECOMMENDATIONS = ["Find their tech blog", "Add your research to the notes field"]
 
 
 end
