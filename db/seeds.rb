@@ -24,7 +24,7 @@ User.create(email: 'test@test.com', password: "password")
 puts "Creating companies..."
 
 def create_company(user_id)
-  Company.create(name: Faker::Company.name, user_id: user_id, notes: Faker::Company.catch_phrase, interest: rand(1..5), website: Faker::Internet.url)
+  Company.create(name: Faker::Company.name, user_id: user_id, notes: Faker::Company.catch_phrase, interest: rand(1..5), website: Faker::Internet.url, blog: Faker::Internet.url, address: "#{Faker::Address.street_address}, #{Faker::Address.city}, #{Faker::Address.state_abbr}, #{Faker::Address.zip}")
 end
 
 User.all.each do |user|
@@ -37,7 +37,7 @@ end
 
 
 def create_lead(company_id)
-  Lead.create(company_id: company_id, name: Faker::Name.name, blog: Faker::Internet.url, linked_in: Faker::Internet.url, notes: Faker::Company.catch_phrase)
+  Lead.create(company_id: company_id, email: Faker::Internet.url, name: Faker::Name.name, blog: Faker::Internet.url, linked_in: Faker::Internet.url, notes: Faker::Company.catch_phrase)
 end
 
 
