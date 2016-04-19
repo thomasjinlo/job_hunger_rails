@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.3.0
 addons:
-  - postgresql
+  postgresql: '9.4'
 branches:
   only:
   - master
@@ -13,3 +13,5 @@ deploy:
     secure: PVvqqtghMWO9CQiSrutpIIuG8z8goq4GTDCZU3SuHX7ZZ+NGNksUa5o2weYRqr+1xylsq9D/c+dqTHPRm97h+OwCVMTKtZJL/nH1TQJuzdaH+sIFCjK8Vdp6XnV97tOl/CWr/V+89Yh9M/HKwU9NGCoes/wuj6h9yG45jTJYMOVM/zR6ChIKniAlyR/18Df6omMD1xK1h3c82cMqfKLuAqcRqqWU9lahIGl0qNGgMjwgVWd1Hi7uaC2BPtRHlPkcLK9UNcmJoFBLMUQvZ5evWQeAWrelU/6OhI6YF0lBfdT4GE3C0atvXbfKOwe7aqqPJJ0dy7NEtQHwg7my1cEjamUiYWhCQ5Byp5e2bVae0UjFBx/HUJ7NDrreXmHjJ2AQS0vtIgx7QwI2Ng8wzHbcw2uogaQutepMKsJbtQ7cOmcyqOrmDt7iUyzmLWqmRDq/41JX5GKrnstAq3PTfBAj8mi25bEdD9unJYQakGMM7EVW+vg608UM0Wj4iRh/UDFXdxoQSuazy/pIzEXbA2gNZQ7KRlM+xyZlJAcmkOkV10uA4wuzCVfMAqByBKWFC6KEQNAWTxmNaVAeW0vsHxyeQRyxv/lNKwZAhAy1B1WH2kD17X1B5XDgXiofHySOE5AfcgHdL+Mwc8dCYTUNf1pZmHJwxsdwB7T8KPiwA5pZG7I=
 before_script:
   - psql -c 'create database JobHunger_test;' -U postgres
+  - bundle exec rake db:setup
+  - bundle exec rake db:migrate
