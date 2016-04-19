@@ -11,6 +11,7 @@ gem 'faker'
 gem 'rails_12factor'
 gem 'jsonapi-resources'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'hirb'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'

@@ -1,6 +1,7 @@
 class Company < ActiveRecord::Base
   belongs_to :user
   has_many :leads
+  has_many :jobs
   has_many :recommendations, as: :recommendable
 
 

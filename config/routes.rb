@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :recommendations
-  mount_devise_token_auth_for 'User', at: 'users'
+
+  mount_devise_token_auth_for 'User', at: 'auth'
 
   # devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' } do
   #   get "sign_in" => "users/sessions#new"
