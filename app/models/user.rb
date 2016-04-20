@@ -5,8 +5,15 @@ class User < ActiveRecord::Base
           :omniauthable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :activities
   has_many :companies
   has_many :recommendations
   has_many :leads, through: :companies
   has_many :jobs, through: :companies
+
+
+  def score
+    activities.sum :points
+  end
+
 end
