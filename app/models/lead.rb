@@ -1,9 +1,12 @@
 class Lead < ActiveRecord::Base
   belongs_to :company
-  has_many :recommendations, as: :recommendable
+  has_many :recommendations, as: :recommendable, dependent: :destroy
   has_many :scores, as: :scoreable
 
-  RECOMMENDATIONS = ["Find their blog", "Connect with them on LinkedIn", "See if their company is hosting a Meetup"]
+
+  validates :name, presence: true
+  validates :company_id, presence: true
+
 
   after_create :make_activity
 

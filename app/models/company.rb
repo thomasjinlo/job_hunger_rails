@@ -1,11 +1,14 @@
 class Company < ActiveRecord::Base
   belongs_to :user
-  has_many :leads
-  has_many :jobs
-  has_many :recommendations, as: :recommendable
+  has_many :leads, dependent: :destroy
+  has_many :jobs, dependent: :destroy
+  has_many :recommendations, as: :recommendable, dependent: :destroy
   has_many :scores, as: :scoreable
 
-  RECOMMENDATIONS = ["Find their tech blog", "Add your research to the notes field"]
+
+  validates :name, presence: true
+  validates :user_id, presence: true
+
 
   after_create :make_activity
 
