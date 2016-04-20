@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160418202937) do
+ActiveRecord::Schema.define(version: 20160419215455) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "token_id"
+    t.integer  "points"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",       null: false
@@ -50,6 +59,19 @@ ActiveRecord::Schema.define(version: 20160418202937) do
 
   add_index "leads", ["company_id"], name: "index_leads_on_company_id", using: :btree
 
+  create_table "recommendations", force: :cascade do |t|
+    t.integer  "user_id",            null: false
+    t.datetime "start_date",         null: false
+    t.string   "recommendable_type", null: false
+    t.integer  "recommendable_id",   null: false
+    t.string   "action",             null: false
+    t.boolean  "completed",          null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "recommendations", ["user_id"], name: "index_recommendations_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "provider",               default: "email", null: false
     t.string   "uid",                    default: "",      null: false
@@ -70,9 +92,10 @@ ActiveRecord::Schema.define(version: 20160418202937) do
     t.string   "nickname"
     t.string   "image"
     t.string   "email"
-    t.json     "tokens"
+    t.json     "tokens",                 default: {}
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "score",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
@@ -80,4 +103,5 @@ ActiveRecord::Schema.define(version: 20160418202937) do
   add_index "users", ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
 
   add_foreign_key "leads", "companies"
+  add_foreign_key "recommendations", "users"
 end
