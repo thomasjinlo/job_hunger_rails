@@ -3,11 +3,15 @@ class LeadResource < JSONAPI::Resource
 
   attributes :name, :linked_in, :blog, :email, :notes
 
-  after_create :generate_recommendations
+  after_create :generate_recommendation
 
-  def generate_recommendations
-    Lead::RECOMMENDATIONS.each do |action|
-      Recommendation.create(recommendable_type: @model.class, recommendable_id: @model.id, completed: false, action: action, user_id: @model.company.user.id, start_date: DateTime.now + rand(1..3))
-    end
+
+  def generate_recommendation
+    recommendations = ["Step up your stalker game and find #{@model.name}'s blog", "Connect with #{@model.name} on LinkedIn", "Is #{@model.name}'s company hosting a Meetup soon?"]
+    action = recommendations.sample
+
+    Recommendation.create(recommendable_type: @model.class, recommendable_id: @model.id, completed: false, action: action, user_id: @model.company.user.id, start_date: DateTime.now + rand(1..3))
   end
+
+
 end
