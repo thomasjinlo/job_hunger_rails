@@ -6,6 +6,10 @@ class Company < ActiveRecord::Base
   has_many :scores, as: :scoreable
 
 
+  validates :name, presence: true
+  validates :user_id, presence: true
+
+
   after_create :make_activity
 
   private
