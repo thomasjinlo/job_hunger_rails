@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe RecommendableController, type: :controller do
+RSpec.describe RecommendablesController, type: :controller do
 
 end

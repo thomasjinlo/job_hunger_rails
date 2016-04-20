@@ -3,10 +3,10 @@ class Lead < ActiveRecord::Base
   has_many :recommendations, as: :recommendable
   has_many :scores, as: :scoreable
 
+
   validates :name, presence: true
   validates :company_id, presence: true
 
-  RECOMMENDATIONS = ["Find their blog", "Connect with them on LinkedIn", "See if their company is hosting a Meetup"]
 
   after_create :make_activity
 
