@@ -1,6 +1,6 @@
 class Lead < ActiveRecord::Base
   belongs_to :company
-  has_many :recommendations, as: :recommendable
+  has_many :recommendations, as: :recommendable, dependent: :destroy
   has_many :scores, as: :scoreable
 
 
