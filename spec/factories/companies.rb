@@ -3,6 +3,6 @@ FactoryGirl.define do
     name "AOL"
     notes "This is a note."
     interest 5
-    # user
+    user
   end
 end

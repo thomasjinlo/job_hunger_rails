@@ -3,6 +3,9 @@ class Job < ActiveRecord::Base
   has_many :recommendations, as: :recommendable
   has_many :scores, as: :scoreable
 
+  validates :title, presence: true
+  validates :company_id, presence: true
+
   after_create :make_activity
 
   private
