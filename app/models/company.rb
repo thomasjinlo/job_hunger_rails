@@ -1,8 +1,8 @@
 class Company < ActiveRecord::Base
   belongs_to :user
-  has_many :leads
-  has_many :jobs
-  has_many :recommendations, as: :recommendable
+  has_many :leads, dependent: :destroy
+  has_many :jobs, dependent: :destroy
+  has_many :recommendations, as: :recommendable, dependent: :destroy
   has_many :scores, as: :scoreable
 
 
