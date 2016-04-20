@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 20160419215455) do
     t.string   "nickname"
     t.string   "image"
     t.string   "email"
-    t.json     "tokens"
+    t.json     "tokens",                 default: {}
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "score",                  default: 0
