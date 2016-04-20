@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20160420163857) do
   end
 
   create_table "leads", force: :cascade do |t|
-    t.integer  "company_id"
+    t.integer  "company_id", null: false
     t.string   "name",       null: false
     t.string   "linked_in"
     t.string   "blog"
