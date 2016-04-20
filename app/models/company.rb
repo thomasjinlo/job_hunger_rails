@@ -5,6 +5,9 @@ class Company < ActiveRecord::Base
   has_many :recommendations, as: :recommendable
   has_many :scores, as: :scoreable
 
+  validates :name, presence: true
+  validates :user_id, presence: true
+
   RECOMMENDATIONS = ["Find their tech blog", "Add your research to the notes field"]
 
   after_create :make_activity
