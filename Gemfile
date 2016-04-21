@@ -11,6 +11,7 @@ gem 'rails_12factor'
 gem 'jsonapi-resources'
 gem 'rack-cors', require: 'rack/cors'
 gem 'hirb'
+gem 'delayed_job_active_record'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
@@ -23,6 +24,7 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'factory_girl_rails'
   gem 'figaro'
+  gem 'letter_opener'
 end
 
 group :development do
