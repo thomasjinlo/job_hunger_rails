@@ -13,6 +13,7 @@ gem 'jsonapi-resources'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'hirb'
 gem 'delayed_job_active_record'
+gem 'httparty'
 
 group :development, :test do
   gem 'jazz_hands', github: 'nixme/jazz_hands', branch: 'bring-your-own-debugger'
