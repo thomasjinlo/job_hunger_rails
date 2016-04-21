@@ -24,7 +24,7 @@ User.create(email: 'test@test.com', password: 'password')
 puts 'Creating companies...'
 
 def create_company(user_id)
-  Company.create(name: Faker::Company.name, user_id: user_id, notes: Faker::Company.catch_phrase, interest: rand(1..5), website: Faker::Internet.url, blog: Faker::Internet.url, address: "#{Faker::Address.street_address}, #{Faker::Address.city}, #{Faker::Address.state_abbr}, #{Faker::Address.zip}")
+  Company.create(name: Faker::Company.name, user_id: user_id, notes: Faker::Company.catch_phrase, interest: rand(0..1), website: Faker::Internet.url, blog: Faker::Internet.url, address: "#{Faker::Address.street_address}, #{Faker::Address.city}, #{Faker::Address.state_abbr}, #{Faker::Address.zip}")
 end
 
 User.all.each do |user|
@@ -44,7 +44,7 @@ end
 
 def create_company_recommendations(company)
   recommendations = [
-    "Do some google-ing to find #{company.name}'s tech blog", 
+    "Do some google-ing to find #{company.name}'s tech blog",
     "Gather some cool facts about #{company.name}"
   ]
   action = recommendations.sample
