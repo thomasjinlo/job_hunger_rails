@@ -286,7 +286,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
-  devise
   devise_token_auth!
   factory_girl_rails
   faker
@@ -307,3 +306,6 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.11.2
