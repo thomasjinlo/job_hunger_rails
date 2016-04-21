@@ -46,12 +46,22 @@ class Company < ActiveRecord::Base
     request_string = base_string + "?" + query_arr.join("&")
     puts request_string
     glassdoor_response = HTTParty.get( request_string )
-    # puts glassdoor_response
+    # pp glassdoor_response['response']
 
-    glassdoor_website = glassdoor_response.employers[0].website
-    glassdoor_rating =  glassdoor_response.employers[0].overallRating
-    glassdoor_logo_link = glassdoor_response.employers[0].squareLogo
+    if glassdoor_response
+      glassdoor_website = glassdoor_response['response']['employers'][0]['website']
+      glassdoor_rating =  glassdoor_response['response']['employers'][0]['overallRating']
+      glassdoor_logo_link = glassdoor_response['response']['employers'][0]['squareLogo']
 
+      # puts glassdoor_website
+      # puts glassdoor_rating
+      # puts glassdoor_logo_link 
+
+      self.glassdoor_website = glassdoor_website
+      self.glassdoor_rating = glassdoor_rating.to_f
+      self.glassdoor_logo_link = glassdoor_logo_link
+      self.save
+    end
   end
 
 end
