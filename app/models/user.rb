@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
           :recoverable, :rememberable, :trackable, :validatable,
           :omniauthable
   include DeviseTokenAuth::Concerns::User
+  after_create :send_welcome_email
 
   has_many :activities
   has_many :companies
@@ -13,6 +14,11 @@ class User < ActiveRecord::Base
 
   def score
     activities.sum :points
+  end
+
+  private
+  def send_welcome_email
+    UserMailer.welcome(self).deliver!
   end
 
 end
