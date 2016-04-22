@@ -21,4 +21,7 @@ class User < ActiveRecord::Base
   def send_welcome_email
     UserMailer.welcome(self).deliver_now!
   end
+
+  handle_asynchronously :send_welcome_email
+
 end
