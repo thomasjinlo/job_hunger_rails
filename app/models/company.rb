@@ -34,6 +34,7 @@ class Company < ActiveRecord::Base
     ]
   end
 
+
   private
 
   def make_activity
@@ -47,6 +48,7 @@ class Company < ActiveRecord::Base
     )
     activity.save
   end
+
 
 
   def get_glassdoor_info
@@ -74,31 +76,34 @@ class Company < ActiveRecord::Base
     # pp glassdoor_response
     # pp glassdoor_response['response']
     validate_glassdoor_response glassdoor_response
-
-    # if glassdoor_response['response']
-    #   validate_glassdoor_response( glassdoor_response['response'] )
-    # end
     self.save
   end
 
   def validate_glassdoor_response( response ) 
+    puts "validation function"
+    # pp response
     if response
-      if response['employers']
-        if response['employers'][0]
-      
-          if response['employers'][0]['website']
-            self.glassdoor_website = response['employers'][0]['website']
-            # puts self.glassdoor_website
-          end
+      # puts "first if"
+      if response['response'] 
+        if response['response']['employers']
+          # puts "second if"
+          if response['response']['employers'][0]
+          # puts "third if"
+        
+            if response['response']['employers'][0]['website']
+              self.glassdoor_website = response['response']['employers'][0]['website']
+              # puts self.glassdoor_website
+            end
 
-          if response['employers'][0]['overallRating']
-            self.glassdoor_rating = response['employers'][0]['overallRating'].to_f
-            # puts self.glassdoor_rating
-          end
+            if response['response']['employers'][0]['overallRating']
+              self.glassdoor_rating = response['response']['employers'][0]['overallRating'].to_f
+              # puts self.glassdoor_rating
+            end
 
-          if response['employers'][0]['squareLogo']
-            self.glassdoor_logo_link = response['employers'][0]['squareLogo']
-            # puts self.glassdoor_logo_link 
+            if response['response']['employers'][0]['squareLogo']
+              self.glassdoor_logo_link = response['response']['employers'][0]['squareLogo']
+              # puts self.glassdoor_logo_link 
+            end
           end
         end
       end
