@@ -8,6 +8,8 @@ class Job < ActiveRecord::Base
 
   after_create :make_activity
 
+  STATUSES = %w(Interested Applied Rejected Interview Offer)
+
   private
 
   def make_activity
