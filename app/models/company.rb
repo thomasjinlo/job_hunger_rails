@@ -71,7 +71,7 @@ class Company < ActiveRecord::Base
     ]
 
     request_string = base_string + "?" + query_arr.join("&")
-    puts request_string
+    # puts request_string
     glassdoor_response = HTTParty.get( request_string )
     # pp glassdoor_response
     # pp glassdoor_response['response']
