@@ -34,6 +34,7 @@ class Company < ActiveRecord::Base
     ]
   end
 
+
   private
 
   def make_activity
@@ -47,6 +48,7 @@ class Company < ActiveRecord::Base
     )
     activity.save
   end
+
 
 
   def get_glassdoor_info
@@ -74,10 +76,6 @@ class Company < ActiveRecord::Base
     # pp glassdoor_response
     # pp glassdoor_response['response']
     validate_glassdoor_response glassdoor_response
-
-    # if glassdoor_response['response']
-    #   validate_glassdoor_response( glassdoor_response['response'] )
-    # end
     self.save
   end
 
