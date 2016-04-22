@@ -73,31 +73,36 @@ class Company < ActiveRecord::Base
     glassdoor_response = HTTParty.get( request_string )
     # pp glassdoor_response
     # pp glassdoor_response['response']
+    validate_glassdoor_response glassdoor_response
 
-    validate_glassdoor_response glassdoor_response['response']
-
-    if glassdoor_response['response']
-      validate_glassdoor_response( glassdoor_response['response'] )
-      self.save
-    end
+    # if glassdoor_response['response']
+    #   validate_glassdoor_response( glassdoor_response['response'] )
+    # end
+    self.save
   end
 
   def validate_glassdoor_response( response ) 
-    if response['employers'][0]['website']
-      self.glassdoor_website = response['employers'][0]['website']
-      # puts self.glassdoor_website
-    end
+    if response
+      if response['employers']
+        if response['employers'][0]
+      
+          if response['employers'][0]['website']
+            self.glassdoor_website = response['employers'][0]['website']
+            # puts self.glassdoor_website
+          end
 
-    if response['employers'][0]['overallRating']
-      self.glassdoor_rating = response['employers'][0]['overallRating'].to_f
-      # puts self.glassdoor_rating
-    end
+          if response['employers'][0]['overallRating']
+            self.glassdoor_rating = response['employers'][0]['overallRating'].to_f
+            # puts self.glassdoor_rating
+          end
 
-    if response['employers'][0]['squareLogo']
-      self.glassdoor_logo_link = response['employers'][0]['squareLogo']
-      # puts self.glassdoor_logo_link 
+          if response['employers'][0]['squareLogo']
+            self.glassdoor_logo_link = response['employers'][0]['squareLogo']
+            # puts self.glassdoor_logo_link 
+          end
+        end
+      end
     end
-
   end
 
 end
