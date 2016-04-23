@@ -4,7 +4,7 @@ class CompanyResource < JSONAPI::Resource
   has_many :leads
   has_many :recommendations
 
-  attributes :name, :notes, :interest, :website, :blog, :address
+  attributes :name, :notes, :interest, :website, :blog, :address, :glassdoor_rating, :glassdoor_website
 
   # after_create :generate_recommendation
 
