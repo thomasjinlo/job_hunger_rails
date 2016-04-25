@@ -16,7 +16,6 @@ RSpec.describe JobsController, type: :controller do
 
     it 'gets all the jobs' do
       get :index
-      print json
       expect(json['data'].length).to eq(1)
     end
   end

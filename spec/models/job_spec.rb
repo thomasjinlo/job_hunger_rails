@@ -22,4 +22,10 @@ RSpec.describe Job, type: :model do
   it 'after_create callback creates Activity' do
     expect { job.save }.to change { Activity.count }.by 2
   end
+
+  describe Job do
+    it { should belong_to(:company) }
+    it { should have_many(:recommendations) }
+    it { should validate_length_of(:title) }
+  end
 end

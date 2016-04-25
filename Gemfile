@@ -7,7 +7,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth'
 gem 'omniauth'
 gem 'faker'
-gem 'rails_12factor'
 gem 'jsonapi-resources'
 gem 'rack-cors', require: 'rack/cors'
 gem 'hirb'
@@ -26,9 +25,14 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'figaro'
   gem 'letter_opener'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+end
+
+group :production do
+  gem 'rails_12factor'
 end

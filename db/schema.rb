@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 20160425213911) do
     t.string   "nickname"
     t.string   "image"
     t.string   "email"
-    t.string   "tokens",                 default: "{}"
+    t.string   "tokens"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "has_onboarded"

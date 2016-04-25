@@ -3,7 +3,7 @@ class Job < ActiveRecord::Base
   has_many :recommendations, as: :recommendable
   has_many :scores, as: :scoreable
 
-  validates :title, presence: true
+  validates :title, presence: true, length: { minimum: 1}
   validates :company_id, presence: true
 
   after_create :make_activity
