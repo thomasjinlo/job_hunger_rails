@@ -36,7 +36,6 @@ RSpec.describe CompaniesController, type: :controller do
     end
 
     xit 'creates a new company with valid parameters' do
-      puts user.id
       data = { "data": {
                 "type": "companies",
                 "attributes": {

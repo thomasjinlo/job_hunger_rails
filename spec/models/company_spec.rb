@@ -22,4 +22,13 @@ RSpec.describe Company, type: :model do
   it 'after_create callback creates Activity' do
     expect { company.save }.to change { Activity.count }.by 1
   end
+
+  describe Company do
+    it { should belong_to(:user) }
+    it { should have_many(:leads) }
+    it { should have_many(:jobs) }
+    it { should validate_length_of(:name) }
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:user_id) }
+  end
 end

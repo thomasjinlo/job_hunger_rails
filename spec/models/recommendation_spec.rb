@@ -45,4 +45,13 @@ RSpec.describe Recommendation, type: :model do
     recommendation.reload
     expect(recommendation.completed).to equal true
   end
+
+
+  describe Recommendation do
+    it { should belong_to(:user) }
+    it { should belong_to(:recommendable) }
+    it { should validate_presence_of(:user) }
+    it { should validate_presence_of(:recommendable) }
+    it { should validate_presence_of(:action) }
+  end
 end
