@@ -16,6 +16,9 @@ class User < ActiveRecord::Base
     activities.sum :points
   end
 
+  def score=(val)
+  end
+
   private
 
   def send_welcome_email
