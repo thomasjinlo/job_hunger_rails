@@ -11,6 +11,6 @@ RSpec.describe User, type: :model do
 
   it 'is not valid without encrypted_password' do
     user.encrypted_password = nil
-    expect { user.save }.to raise_error
+    expect { user.save }.to raise_error(ActiveRecord::StatementInvalid)
   end
 end
