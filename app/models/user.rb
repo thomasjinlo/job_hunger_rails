@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
   has_many :leads, through: :companies
   has_many :jobs, through: :companies
 
+  validates :email, uniqueness: true, length: { minimum: 1 }
+  validates :password, length: { minimum: 8 }
+
+
   def score
     activities.sum :points
   end

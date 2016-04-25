@@ -7,7 +7,7 @@ class Lead < ActiveRecord::Base
   has_many :scores, as: :scoreable
   has_one :user, through: :company
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1 }
   validates :company_id, presence: true
 
   after_create :make_activity
