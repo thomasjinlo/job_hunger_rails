@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
   has_many :jobs, through: :companies
 
   validates :email, uniqueness: true, length: { minimum: 1 }
-  validates :password, length: { minimum: 8 }
+  validates :password, length: { minimum: 8 }, allow_blank: true
 
 
   def score
