@@ -5,7 +5,7 @@ class Job < ActiveRecord::Base
 
   STATUSES = %w(Interested Applied Rejected Interview Offer)
 
-  validates :title, presence: true, length: { minimum: 1}
+  validates :title, presence: true, length: { minimum: 1 }
   validates :company_id, presence: true
   # validates :application_status, inclusion: { in: STATUSES }
 
