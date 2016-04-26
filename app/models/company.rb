@@ -80,7 +80,6 @@ class Company < ActiveRecord::Base
   end
 
   def validate_glassdoor_response( response ) 
-    puts "validation function"
     # pp response
     if response
       # puts "first if"
