@@ -6,7 +6,7 @@ class Company < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   has_many :scores, as: :scoreable
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { minimum: 1 }
   validates :user_id, presence: true
 
   after_create :make_activity
