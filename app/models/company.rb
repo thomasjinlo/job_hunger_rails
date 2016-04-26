@@ -92,6 +92,9 @@ class Company < ActiveRecord::Base
             if response['response']['employers'][0]['website']
               self.glassdoor_website = response['response']['employers'][0]['website']
               # puts self.glassdoor_website
+              if !self.website
+                self.website = response['response']['employers'][0]['website']
+              end
             end
 
             if response['response']['employers'][0]['overallRating']
