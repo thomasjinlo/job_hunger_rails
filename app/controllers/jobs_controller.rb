@@ -4,24 +4,15 @@ class JobsController < ApplicationController
 
   def create_from_chrome
     company = Company.find_or_create_by(name: params[:company_name], user_id: current_user.id)
-    @job = Job.create(title: params[:title], company_id: company.id, application_status: "Interested", notes: params[:notes])
+    @job = Job.create(title: params[:title], company_id: company.id, application_status: 'Interested', notes: params[:notes])
 
     respond_to do |f|
       if @job.save
         f.json { render json: 201 }
       else
-        f.json { render json: { status: :unprocessable_entity} }
+        f.json { render json: { status: :unprocessable_entity } }
       end
     end
   end
-
-
-  # TODO: figure out strong parameters
-  # private
-
-  # def job_params(company_id)
-  #   params.require(:job).permit(:title, :notes, :company_name)
-  # end
-
 
 end

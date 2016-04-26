@@ -50,44 +50,32 @@ class Company < ActiveRecord::Base
   end
 
 
-
   def get_glassdoor_info
     base_string = "http://api.glassdoor.com/api/api.htm"
-
     partner_str = "t.p=" + ENV['GLASSDOOR_PARTNER'].to_s
-    key_str =  "t.k=" + ENV['GLASSDOOR_KEY'].to_s
-    query_str = "q="+ name
+    key_str = "t.k=" + ENV['GLASSDOOR_KEY'].to_s
+    query_str = "q=" + name
     format_str = "format=json"
     version_str = "v=1"
     action_str = "action=employers"
 
-    query_arr = [
-      partner_str,
-      key_str,
-      query_str,
-      format_str,
-      version_str,
-      action_str
-    ]
+    query_arr = [partner_str, key_str, query_str, format_str, version_str, action_str]
 
     request_string = base_string + "?" + query_arr.join("&")
-    # puts request_string
-    glassdoor_response = HTTParty.get( request_string )
-    # pp glassdoor_response
-    # pp glassdoor_response['response']
+    glassdoor_response = HTTParty.get(request_string)
     validate_glassdoor_response glassdoor_response
     self.save
   end
 
-  def validate_glassdoor_response( response ) 
-    # pp response
+  def validate_glassdoor_response(response)
+    pp response
     if response
       # puts "first if"
-      if response['response'] 
+      if response['response']
         if response['response']['employers']
           # puts "second if"
           if response['response']['employers'][0]
-          # puts "third if"
+            # puts "third if"
         
             if response['response']['employers'][0]['website']
               self.glassdoor_website = response['response']['employers'][0]['website']
@@ -107,6 +95,9 @@ class Company < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def validate_response(response)
   end
 
 end
