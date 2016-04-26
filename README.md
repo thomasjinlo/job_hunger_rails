@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/kitlangton/job_hunger_rails.png?branch=master)](https://travis-ci.org/kitlangton/job_hunger_rails)
+[![HitCount](https://hitt.herokuapp.com/kitlangton/job_hunger_rails.svg)](https://github.com/kitlangton/job_hunger_rails)
+
+# Job Hunger
+
 ### Live website: http://job-hunger.surge.sh/
 
 
@@ -69,3 +74,5 @@ clone this repo and `$ cd` into it
 `$ rails s`
 
 visit localhost:3000
+
+`$ rspec` to run tests
