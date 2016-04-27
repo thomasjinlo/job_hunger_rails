@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   has_many :leads, dependent: :destroy
   has_many :jobs, dependent: :destroy
   has_many :scores, as: :scoreable
+  has_many :lead_recommendations, through: :leads, source: :recommendations
 
   validates :name, presence: true, length: { minimum: 1 }
   validates :user_id, presence: true
@@ -12,28 +13,34 @@ class Company < ActiveRecord::Base
   after_create :make_activity
   after_create :get_glassdoor_info
 
-  # Recommendable
-
   def recommendable_actions
     [
       {
         field: 'blog',
+        kind: 'edit',
         query: "#{name} company blog",
         action: 'Add the company blog'
       },
       {
         field: 'website',
+        kind: 'edit',
         query: "#{name} company website",
         action: 'Add the website'
       },
       {
         field: 'address',
+        kind: 'edit',
         query: "#{name} company address",
         action: 'Add an address'
+      },
+      {
+        field: 'leads',
+        label: 'Lead Name',
+        kind: 'create',
+        action: 'Add a lead'
       }
     ]
   end
-
 
   private
 
@@ -49,46 +56,30 @@ class Company < ActiveRecord::Base
     activity.save
   end
 
-
-
   def get_glassdoor_info
     base_string = "http://api.glassdoor.com/api/api.htm"
-
     partner_str = "t.p=" + ENV['GLASSDOOR_PARTNER'].to_s
-    key_str =  "t.k=" + ENV['GLASSDOOR_KEY'].to_s
-    query_str = "q="+ name
+    key_str = "t.k=" + ENV['GLASSDOOR_KEY'].to_s
+    query_str = "q=" + name
     format_str = "format=json"
     version_str = "v=1"
     action_str = "action=employers"
 
-    query_arr = [
-      partner_str,
-      key_str,
-      query_str,
-      format_str,
-      version_str,
-      action_str
-    ]
+    query_arr = [partner_str, key_str, query_str, format_str, version_str, action_str]
 
     request_string = base_string + "?" + query_arr.join("&")
-    # puts request_string
-    glassdoor_response = HTTParty.get( request_string )
-    # pp glassdoor_response
-    # pp glassdoor_response['response']
+    glassdoor_response = HTTParty.get(request_string)
     validate_glassdoor_response glassdoor_response
     self.save
   end
 
-  def validate_glassdoor_response( response ) 
-    # pp response
+  def validate_glassdoor_response(response)
     if response
       # puts "first if"
-      if response['response'] 
+      if response['response']
         if response['response']['employers']
           # puts "second if"
           if response['response']['employers'][0]
-          # puts "third if"
-        
             if response['response']['employers'][0]['website']
               self.glassdoor_website = response['response']['employers'][0]['website']
               # puts self.glassdoor_website
@@ -104,12 +95,15 @@ class Company < ActiveRecord::Base
 
             if response['response']['employers'][0]['squareLogo']
               self.glassdoor_logo_link = response['response']['employers'][0]['squareLogo']
-              # puts self.glassdoor_logo_link 
+              # puts self.glassdoor_logo_link
             end
           end
         end
       end
     end
+  end
+
+  def validate_response(response)
   end
 
 end

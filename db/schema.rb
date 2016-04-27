@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426164425) do
+ActiveRecord::Schema.define(version: 20160426221805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,9 @@ ActiveRecord::Schema.define(version: 20160426164425) do
     t.datetime "updated_at",                         null: false
     t.string   "query"
     t.string   "field"
+    t.string   "kind"
+    t.string   "label"
+    t.string   "link"
   end
 
   add_index "recommendations", ["user_id"], name: "index_recommendations_on_user_id", using: :btree
