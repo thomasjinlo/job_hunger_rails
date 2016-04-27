@@ -16,13 +16,26 @@ class Lead < ActiveRecord::Base
     [
       {
         field: 'blog',
+        kind: 'edit',
         query: "#{name} blog",
         action: 'Add the personal blog'
       },
       {
         field: 'linked_in',
+        kind: 'edit',
         query: "#{name} linked in",
         action: 'Add the Linked In account'
+      },
+    ]
+  end
+
+  def field_recommendations
+    [
+      {
+        field: 'blog',
+        kind: 'action',
+        link: blog,
+        action: 'Leave a blog comment'
       }
     ]
   end
