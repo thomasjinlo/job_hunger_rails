@@ -7,8 +7,11 @@ class Company < ActiveRecord::Base
   has_many :scores, as: :scoreable
   has_many :lead_recommendations, through: :leads, source: :recommendations
 
-  validates :name, presence: true, length: { minimum: 1 }
-  validates :user_id, presence: true
+  validates :name, presence: true, length: { in: 1..100 }
+  validates :user_id, presence: true, numericality: { only_integer: true }
+  validates :notes, length: { maximum: 500 }
+  validates :interest, numericality: { only_integer: true }
+  validates :website, :blog, :address, :glassdoor_website, :glassdoor_logo_link, length: { maximum: 300 }
 
   after_create :make_activity
   after_create :get_glassdoor_info
