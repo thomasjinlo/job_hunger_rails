@@ -82,18 +82,18 @@ ActiveRecord::Schema.define(version: 20160426221805) do
   add_index "leads", ["company_id"], name: "index_leads_on_company_id", using: :btree
 
   create_table "recommendations", force: :cascade do |t|
-    t.integer  "user_id",                            null: false
-    t.datetime "start_date",                         null: false
-    t.string   "recommendable_type",                 null: false
-    t.integer  "recommendable_id",                   null: false
-    t.string   "action",                             null: false
-    t.boolean  "completed",          default: false, null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.integer  "user_id",                             null: false
+    t.datetime "start_date",                          null: false
+    t.string   "recommendable_type",                  null: false
+    t.integer  "recommendable_id",                    null: false
+    t.string   "action",                              null: false
+    t.boolean  "completed",          default: false,  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "query"
     t.string   "field"
     t.string   "kind"
-    t.string   "label"
+    t.string   "label",              default: "edit"
     t.string   "link"
   end
 
