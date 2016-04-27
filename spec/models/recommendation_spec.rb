@@ -38,6 +38,7 @@ RSpec.describe Recommendation, type: :model do
     recommendation = company.recommendations.create(
       action: 'uhuh',
       field: 'blog',
+      kind: 'edit',
       user: user,
       start_date: Date.today
     )
@@ -46,12 +47,9 @@ RSpec.describe Recommendation, type: :model do
     expect(recommendation.completed).to equal true
   end
 
-
-  describe Recommendation do
-    it { should belong_to(:user) }
-    it { should belong_to(:recommendable) }
-    it { should validate_presence_of(:user) }
-    it { should validate_presence_of(:recommendable) }
-    it { should validate_presence_of(:action) }
-  end
+  it { should belong_to(:user) }
+  it { should belong_to(:recommendable) }
+  it { should validate_presence_of(:user) }
+  it { should validate_presence_of(:recommendable) }
+  it { should validate_presence_of(:action) }
 end

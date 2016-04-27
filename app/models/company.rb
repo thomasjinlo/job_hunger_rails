@@ -5,6 +5,7 @@ class Company < ActiveRecord::Base
   has_many :leads, dependent: :destroy
   has_many :jobs, dependent: :destroy
   has_many :scores, as: :scoreable
+  has_many :lead_recommendations, through: :leads, source: :recommendations
 
   validates :name, presence: true, length: { minimum: 1 }
   validates :user_id, presence: true
@@ -12,28 +13,34 @@ class Company < ActiveRecord::Base
   after_create :make_activity
   after_create :get_glassdoor_info
 
-  # Recommendable
-
   def recommendable_actions
     [
       {
         field: 'blog',
+        kind: 'edit',
         query: "#{name} company blog",
         action: 'Add the company blog'
       },
       {
         field: 'website',
+        kind: 'edit',
         query: "#{name} company website",
         action: 'Add the website'
       },
       {
         field: 'address',
+        kind: 'edit',
         query: "#{name} company address",
         action: 'Add an address'
+      },
+      {
+        field: 'leads',
+        label: 'Lead Name',
+        kind: 'create',
+        action: 'Add a lead'
       }
     ]
   end
-
 
   private
 
@@ -48,7 +55,6 @@ class Company < ActiveRecord::Base
     )
     activity.save
   end
-
 
   def get_glassdoor_info
     # sample call: http://api.glassdoor.com/api/api.htm?t.p=62023&t.k=v2fHKkDtZg&q=test&format=json&v=1&action=employers
