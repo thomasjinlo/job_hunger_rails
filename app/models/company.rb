@@ -76,7 +76,7 @@ class Company < ActiveRecord::Base
 
 
   def validate_glassdoor_response(response)
-    unless response.nil? || response["response"]["employers"].empty?
+    unless response.nil? || response["success"] == false || response["response"]["employers"].empty?
       self.glassdoor_website = response["response"]["employers"][0]["website"]
       if self.website.nil?
         self.website = response["response"]["employers"][0]["website"]
