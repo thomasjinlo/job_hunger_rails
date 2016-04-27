@@ -7,8 +7,11 @@ class Company < ActiveRecord::Base
   has_many :scores, as: :scoreable
   has_many :lead_recommendations, through: :leads, source: :recommendations
 
-  validates :name, presence: true, length: { minimum: 1 }
-  validates :user_id, presence: true
+  validates :name, presence: true, length: { in: 1..100 }
+  validates :user_id, presence: true, numericality: { only_integer: true }
+  validates :notes, length: { maximum: 500 }
+  validates :interest, numericality: { only_integer: true }
+  validates :website, :blog, :address, :glassdoor_website, :glassdoor_logo_link, length: { maximum: 300 }
 
   after_create :make_activity
   after_create :get_glassdoor_info
@@ -57,6 +60,8 @@ class Company < ActiveRecord::Base
   end
 
   def get_glassdoor_info
+    # sample call: http://api.glassdoor.com/api/api.htm?t.p=62023&t.k=v2fHKkDtZg&q=test&format=json&v=1&action=employers
+
     base_string = "http://api.glassdoor.com/api/api.htm"
     partner_str = "t.p=" + ENV['GLASSDOOR_PARTNER'].to_s
     key_str = "t.k=" + ENV['GLASSDOOR_KEY'].to_s
@@ -69,41 +74,22 @@ class Company < ActiveRecord::Base
 
     request_string = base_string + "?" + query_arr.join("&")
     glassdoor_response = HTTParty.get(request_string)
-    validate_glassdoor_response glassdoor_response
-    self.save
+    validate_glassdoor_response(glassdoor_response)
   end
+
 
   def validate_glassdoor_response(response)
-    if response
-      # puts "first if"
-      if response['response']
-        if response['response']['employers']
-          # puts "second if"
-          if response['response']['employers'][0]
-            if response['response']['employers'][0]['website']
-              self.glassdoor_website = response['response']['employers'][0]['website']
-              # puts self.glassdoor_website
-              if !self.website
-                self.website = response['response']['employers'][0]['website']
-              end
-            end
-
-            if response['response']['employers'][0]['overallRating']
-              self.glassdoor_rating = response['response']['employers'][0]['overallRating'].to_f
-              # puts self.glassdoor_rating
-            end
-
-            if response['response']['employers'][0]['squareLogo']
-              self.glassdoor_logo_link = response['response']['employers'][0]['squareLogo']
-              # puts self.glassdoor_logo_link
-            end
-          end
-        end
+    unless response.nil? || response["success"] == false || response["response"]["employers"].empty?
+      self.glassdoor_website = response["response"]["employers"][0]["website"]
+      if self.website.nil?
+        self.website = response["response"]["employers"][0]["website"]
       end
-    end
-  end
 
-  def validate_response(response)
-  end
+      self.glassdoor_rating = response["response"]["employers"][0]["overallRating"].to_f    
+         
+      self.glassdoor_logo_link = response["response"]["employers"][0]["squareLogo"]
+    end
+    self.save
+  end 
 
 end
