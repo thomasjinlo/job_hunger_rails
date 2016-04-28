@@ -4,7 +4,10 @@ class JobsController < ApplicationController
 
   def create_from_chrome
     company = Company.find_or_create_by(name: params[:company_name], user_id: current_user.id)
-    @job = Job.create(title: params[:title], company_id: company.id, application_status: 'Interested', notes: params[:notes])
+    @job = Job.create(title: params[:title], 
+                      company_id: company.id, 
+                      application_status: 'Interested', 
+                      notes: params[:notes])
 
     respond_to do |f|
       if @job.save
