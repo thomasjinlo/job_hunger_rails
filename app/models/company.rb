@@ -11,10 +11,11 @@ class Company < ActiveRecord::Base
   validates :user_id, presence: true, numericality: { only_integer: true }
   validates :notes, length: { maximum: 500 }
   validates :interest, numericality: { only_integer: true }
-  validates :website, :blog, :address, :glassdoor_website, :glassdoor_logo_link, length: { maximum: 300 }
+  validates :website, :blog, :address, :glassdoor_website,
+                      :glassdoor_logo_link, length: { maximum: 300 }
 
   after_create :make_activity
-  after_create :get_glassdoor_info
+  after_create :glassdoor_info
 
   def recommendable_actions
     [
@@ -59,18 +60,19 @@ class Company < ActiveRecord::Base
     activity.save
   end
 
-  def get_glassdoor_info
+  def glassdoor_info
     # sample call: http://api.glassdoor.com/api/api.htm?t.p=62023&t.k=v2fHKkDtZg&q=test&format=json&v=1&action=employers
 
-    base_string = "http://api.glassdoor.com/api/api.htm"
+    base_string = 'http://api.glassdoor.com/api/api.htm'
     partner_str = "t.p=" + ENV['GLASSDOOR_PARTNER'].to_s
     key_str = "t.k=" + ENV['GLASSDOOR_KEY'].to_s
     query_str = "q=" + name
     format_str = "format=json"
     version_str = "v=1"
-    action_str = "action=employers"
+    action_str = 'action=employers'
 
-    query_arr = [partner_str, key_str, query_str, format_str, version_str, action_str]
+    query_arr = [partner_str, key_str, query_str,
+                  format_str, version_str, action_str]
 
     request_string = base_string + "?" + query_arr.join("&")
     glassdoor_response = HTTParty.get(request_string)
@@ -80,16 +82,15 @@ class Company < ActiveRecord::Base
 
   def validate_glassdoor_response(response)
     unless response.nil? || response["success"] == false || response["response"]["employers"].empty?
-      self.glassdoor_website = response["response"]["employers"][0]["website"]
+      self.glassdoor_website = response['response']['employers'][0]['website']
       if self.website.nil?
         self.website = response["response"]["employers"][0]["website"]
       end
 
-      self.glassdoor_rating = response["response"]["employers"][0]["overallRating"].to_f    
-         
-      self.glassdoor_logo_link = response["response"]["employers"][0]["squareLogo"]
+      self.glassdoor_rating = response['response']['employers'][0]['overallRating'].to_f
+      self.glassdoor_logo_link = response['response']['employers'][0]['squareLogo']
     end
     self.save
-  end 
+  end
 
 end
