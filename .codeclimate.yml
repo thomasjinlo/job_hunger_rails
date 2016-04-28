@@ -21,6 +21,9 @@ engines:
     enabled: true
   rubocop:
     enabled: true
+    checks:
+      Rubocop/Metrics/MethodLength:
+        enabled: false
     exclude_fingerprints:
       - a0a25fa1d29c65179c56b9f2cd661cec
       - 85d5335dc803290f925fee032a5347c3
