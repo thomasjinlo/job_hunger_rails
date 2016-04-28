@@ -3,7 +3,7 @@ engines:
     enabled: true
   bundler-audit:
     enabled: true
-      exclude_fingerprints:
+    exclude_fingerprints:
       - ec5522ab2f38721b460ada7483ea26f8
   csslint:
     enabled: true
@@ -22,7 +22,7 @@ engines:
   rubocop:
     enabled: true
     exclude_fingerprints:
-    - a0a25fa1d29c65179c56b9f2cd661cec
+      - a0a25fa1d29c65179c56b9f2cd661cec
 ratings:
   paths:
   - Gemfile.lock
